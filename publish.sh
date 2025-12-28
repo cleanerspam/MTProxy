@@ -48,6 +48,7 @@ docker buildx inspect --bootstrap
 # Build and Push
 echo "Building and pushing..."
 docker buildx build \
+  --no-cache \
   --progress=plain \
   --platform linux/amd64,linux/arm64,linux/arm/v7,linux/riscv64,linux/s390x,linux/ppc64le,linux/386 \
   -t "$USERNAME/$IMAGE_NAME:latest" \
