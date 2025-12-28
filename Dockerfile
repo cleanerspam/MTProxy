@@ -4,6 +4,8 @@ WORKDIR /app
 RUN apk add --no-cache git make
 
 RUN git clone https://github.com/9seconds/mtg.git .
+COPY fix_dns.patch .
+RUN git apply fix_dns.patch
 
 ARG TARGETOS TARGETARCH
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o mtg -ldflags "-s -w" .
