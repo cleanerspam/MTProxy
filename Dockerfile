@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine AS builder
+FROM golang:alpine AS builder
 
 WORKDIR /app
 RUN apk add --no-cache git make
@@ -8,7 +8,7 @@ RUN git clone https://github.com/9seconds/mtg.git .
 ARG TARGETOS TARGETARCH
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o mtg -ldflags "-s -w" .
 
-FROM alpine:3.17
+FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates bash curl
 

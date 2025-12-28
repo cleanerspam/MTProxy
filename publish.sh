@@ -29,7 +29,7 @@ fi
 
 echo "----------------------------------------------------"
 echo "Publishing $USERNAME/$IMAGE_NAME:$VERSION"
-echo "Platforms: linux/amd64, linux/arm64"
+echo "Platforms: linux/amd64, linux/arm64, linux/arm/v7, linux/riscv64, linux/s390x, linux/ppc64le, linux/386"
 echo "----------------------------------------------------"
 
 # Initialize buildx
@@ -49,7 +49,7 @@ docker buildx inspect --bootstrap
 echo "Building and pushing..."
 docker buildx build \
   --progress=plain \
-  --platform linux/amd64,linux/arm64 \
+  --platform linux/amd64,linux/arm64,linux/arm/v7,linux/riscv64,linux/s390x,linux/ppc64le,linux/386 \
   -t "$USERNAME/$IMAGE_NAME:latest" \
   -t "$USERNAME/$IMAGE_NAME:$VERSION" \
   --push \
