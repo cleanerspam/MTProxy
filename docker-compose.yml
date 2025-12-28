@@ -1,0 +1,13 @@
+services:
+  mtproxy:
+    image: mtproxy:latest
+    container_name: mtproxy
+    restart: always
+    ports:
+      - "${HOST_PORT:-8443}:8888"
+    volumes:
+      - ./.env:/data/.env
+    environment:
+      - HOST_PORT=${HOST_PORT:-8443}
+      - SECRET=${SECRET}
+      - DOMAIN=cdnjs.cloudflare.com
