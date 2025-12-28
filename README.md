@@ -76,7 +76,9 @@ Download the officially recommended compose file and set your desired port (e.g.
 ```bash
 curl -O https://raw.githubusercontent.com/cleanerspam/MTProxy/main/docker-compose.yml
 echo "HOST_PORT=443" > .env
+echo "SECRET=" >> .env
 ```
+> **Note**: Port **443** is recommended to make traffic look like normal web browsing. If port 443 is already occupied by a web server (nginx/apache), change it to `8443` or `4433` in the command above.
 
 ### 2. ▶️ Start the Proxy
 

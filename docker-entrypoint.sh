@@ -14,9 +14,13 @@ if [ -z "$SECRET" ]; then
         echo "Updating .env file with new SECRET..."
         # Use temp file + cat to preserve file ownership/permissions on host
         # (sed -i would replace the file and make it owned by root)
-        sed "s/^SECRET=$/SECRET=$SECRET/" /data/.env > /tmp/.env.tmp
-        cat /tmp/.env.tmp > /data/.env
-        rm /tmp/.env.tmp
+        if grep -q "^SECRET=" /data/.env; then
+            sed "s/^SECRET=$/SECRET=$SECRET/" /data/.env > /tmp/.env.tmp
+            cat /tmp/.env.tmp > /data/.env
+            rm /tmp/.env.tmp
+        else
+            echo "SECRET=$SECRET" >> /data/.env
+        fi
         
         if grep -q "$SECRET" /data/.env; then
             echo "✅ Successfully saved SECRET to .env"
@@ -34,11 +38,11 @@ fi
 if [ -f /data/.env ]; then
     # grep -q returns 0 if found
     if ! grep -q "^HOST_PORT=" /data/.env; then
-        echo "Updating .env with HOST_PORT=8443 (default)..."
-        echo "HOST_PORT=8443" >> /data/.env
+        echo "Updating .env with HOST_PORT=443 (default)..."
+        echo "HOST_PORT=443" >> /data/.env
     elif grep -q "^HOST_PORT=$" /data/.env; then
-        echo "Updating empty HOST_PORT in .env to 8443..."
-        sed "s/^HOST_PORT=$/HOST_PORT=8443/" /data/.env > /tmp/.env.tmp
+        echo "Updating empty HOST_PORT in .env to 443..."
+        sed "s/^HOST_PORT=$/HOST_PORT=443/" /data/.env > /tmp/.env.tmp
         cat /tmp/.env.tmp > /data/.env
         rm /tmp/.env.tmp
     fi
