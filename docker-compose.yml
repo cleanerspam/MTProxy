@@ -1,6 +1,6 @@
 services:
   mtproxy:
-    image: mtproxy:latest
+    image: arm64builds/mtproxy:latest
     container_name: mtproxy
     restart: always
     ports:
