@@ -1,4 +1,4 @@
-# 🛡️ Telegram MTProto Proxy Docker Image | Anti-Censorship & Privacy
+# 🛡️ Telegram MTProto Proxy Docker<br>Anti-Censorship & Pro Privacy
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/arm64builds/mtproxy)](https://hub.docker.com/r/arm64builds/mtproxy)
 [![Image Size](https://img.shields.io/docker/image-size/arm64builds/mtproxy)](https://hub.docker.com/r/arm64builds/mtproxy)
@@ -31,7 +31,7 @@ The official `telegrammessenger/proxy` Docker image hasn't been updated since **
 
 - **🌐 Multi-Architecture Support**: Runs on everything!
     - **Platforms**: `linux/amd64`, `linux/arm64`, `linux/arm/v7`, `linux/riscv64`, `linux/s390x`, `linux/ppc64le`, `linux/386`.
-    - Perfect for cheap ARM servers, Raspberry Pis, and old hardware.
+    - Perfect for cheap ARM servers, Raspberry Pis, and old hardware. Perfect for **any platform**: ARM, RISC-V, Intel/AMD, PowerPC, and more.
 - **⚡ High Speed & Anti-Throttling**: Overcome ISP throttling. Watch videos and download files at full speed, even if your encrypted traffic is usually slowed down.
 - **⚡ Ultra Lightweight**: Based on **Alpine Linux**. The compressed image is **only ~10-15MB**!
 - **🔒 FakeTLS**: Disguises your traffic as standard HTTPS (default: `cdnjs.cloudflare.com`) to bypass Deep Packet Inspection (DPI) and firewalls in restrictive regions.
@@ -83,7 +83,16 @@ echo "HOST_PORT=443" > .env
 ```bash
 docker compose up -d
 ```
-*Your proxy is now running on port 443! The secret is auto-generated and saved.*
+
+### 3. 📝 View Connection Links & Secret
+
+Once started, the container will print your connection links (tg:// and https://) and the generated secret to the logs.
+
+```bash
+docker compose logs -f mtproxy
+```
+
+*Press `Ctrl+C` to exit logs.*
 
 ---
 
