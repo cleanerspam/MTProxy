@@ -22,28 +22,20 @@ docker logs mtproxy
 
 ## Docker Compose
 
-Create a `docker-compose.yml` file:
+Quick setup using the pre-configured compose file.
 
-```yaml
-services:
-  mtproxy:
-    image: arm64builds/mtproxy:latest
-    container_name: mtproxy
-    restart: always
-    ports:
-      - "8443:8888"
-    volumes:
-      - ./.env:/data/.env
-    environment:
-      - HOST_PORT=8443
-      # - SECRET=ee... # Optional: Provide your own secret
-      # - DOMAIN=google.com # Optional: FakeTLS domain
-```
+1. **Download the compose file and set the port:**
+   ```bash
+   curl -O https://raw.githubusercontent.com/cleanerspam/MTProxy/main/docker-compose.yml
+   echo "HOST_PORT=443" > .env
+   ```
 
-Run it:
-```bash
-docker compose up -d
-```
+2. **Start the proxy:**
+   ```bash
+   docker compose up -d
+   ```
+
+   *Note: This will use port 443 (or whatever you set in `.env`). The secret will be auto-generated.*
 
 ## Configuration
 
