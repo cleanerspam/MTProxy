@@ -12,20 +12,29 @@ if [ -z "$SECRET" ]; then
     # Try to persist to .env if mounted
     if [ -f /data/.env ]; then
         echo "Updating .env file with new SECRET..."
+        
+        # DEBUG: Check permissions
+        echo "DEBUG: .env permissions: $(ls -l /data/.env)"
+        echo "DEBUG: Current user: $(id)"
+
         # Use temp file + cat to preserve file ownership/permissions on host
-        # (sed -i would replace the file and make it owned by root)
         if grep -q "^SECRET=" /data/.env; then
-            sed "s/^SECRET=$/SECRET=$SECRET/" /data/.env > /tmp/.env.tmp
+            # More robust regex: match SECRET= followed by anything (or nothing)
+            sed "s/^SECRET=.*$/SECRET=$SECRET/" /data/.env > /tmp/.env.tmp
             cat /tmp/.env.tmp > /data/.env
             rm /tmp/.env.tmp
         else
+            # If SECRET= not found, append it
             echo "SECRET=$SECRET" >> /data/.env
         fi
         
+        # Verify persistence
         if grep -q "$SECRET" /data/.env; then
             echo "✅ Successfully saved SECRET to .env"
         else
-            echo "⚠️  Failed to save SECRET to .env (Check permissions)"
+            echo "⚠️  Failed to save SECRET to .env"
+            echo "DEBUG: File content after write attempt:"
+            cat /data/.env
         fi
     else
         echo "⚠️  .env file not mounted at /data/.env. Secret will be ephemeral."
